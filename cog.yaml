@@ -1,0 +1,46 @@
+build:
+  gpu: true
+  cuda: "11.8"
+  python_version: "3.9"
+  system_packages:
+    - "ffmpeg"
+    - "libasound2-dev"
+    - "portaudio19-dev"
+    - "libgl1"
+  python_packages:
+    - "torch==2.0.1"
+    - "torchvision==0.15.2"
+    - "torchaudio==2.0.2"
+    - "mmcv==2.1.0"
+    - "transformers==4.33.2"
+    - "pretrainedmodels==0.7.4"
+    - "ninja==1.11.1"
+    - "faiss-cpu==1.7.4"
+    - "praat-parselmouth==0.4.3"
+    - "moviepy==1.0.3"
+    - "mediapipe==0.10.7"
+    - "beartype==0.16.4"
+    - "gateloop-transformer==0.4.0"
+    - "torchode==0.2.0"
+    - "torchdiffeq==0.2.3"
+    - "hydra-core==1.3.2"
+    - "pytorch-lightning==2.1.2"
+    - "gradio==4.16.0"
+    - "openmim==0.3.9"
+  run:
+    - pip install "git+https://github.com/facebookresearch/pytorch3d.git@stable"
+    - mim install mmcv==2.1.0
+    - bash docs/prepare_env/install_ext.sh
+
+predict: "predict.py:Predictor"
+
+# Define the model weights
+weights:
+  - url: "https://drive.google.com/uc?id=1O5C1vK4yqguOhgRQ7kmYqa3-E8q5H_65"
+    dest: "checkpoints/motion2video_nerf.zip"
+  - url: "https://drive.google.com/uc?id=1Qg5V-1-IyEgAOxb2PbBjHpYkizuy6njf"
+    dest: "checkpoints/audio2motion_vae/model.ckpt"
+  - url: "https://drive.google.com/uc?id=1bKY5rn3vcAkv-2m1mui0qr4Fs38jEmy-"
+    dest: "checkpoints/audio2motion_vae/config.yaml"
+  - url: "https://drive.google.com/uc?id=1SPM3IHsyNAaVMwqZZGV6QVaV7I2Hly0v"
+    dest: "deep_3drecon/BFM/BFM.zip"
